@@ -1,0 +1,60 @@
+<div class="section bg valign-wrapper center-align">
+  <div class="" style="margin:0 auto;">
+    <h3 class="white-text" style="font-weight:900;">Todo List App</h3>
+    <p class="white-text" style="font-size:20px; font-weight:600;">Manage your tasks easily</p>
+    <a href="#modal1" class="btn white black-text modal-trigger" style="border-radius:5px; font-weight:bold;">New task</a>
+
+  </div>
+</div>
+
+<div class="section">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.name %></td>
+          <td><%= task.description %></td>
+          <td><%= task.due_date.strftime("%d / %m / %Y") %></td>
+          <td><%= link_to "❌",task,method: :delete,data: { confirm: "Are you sure ?" } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <div class="container">
+      <h3 class="center" style="color:#00838f;font-weight:600;">Add a Task</h3>
+      <br>
+      <%= form_with model: @new_task, :url => { :contriller => 'tasks', :action => 'create' } do |f| %>
+        <div class="">
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+        </div>
+        <div class="">
+          <%= f.label :description %>
+          <%= f.text_area :description,class: "materialize-textarea" %>
+        </div>
+        <div class="">
+          <%= f.label :due_date %>
+          <%= f.date_field :due_date %>
+        </div>
+        <br>
+        <div class="center">
+            <%= f.submit "Add Task",class: "btn center" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
